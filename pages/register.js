@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Layout from "../components/layout/simple";
 import Head from "next/head";
 import User from "../connect/model-config";
+import Router from "next/router";
 
 const register = () => {
   const {
@@ -13,9 +14,36 @@ const register = () => {
   } = useForm();
   const onSubmit = async (data) => {
     try {
+      let password = "";
       const user = new User();
-      const register = await user.Register(data);
-      console.log(register);
+      await user
+        .Setsha512(data.password)
+        .then((res) => {
+          password = res;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      let userData = {
+        username: data.username,
+        password: password,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        phone: data.phone,
+        email: data.email,
+      };
+      await user
+        .Register(userData)
+        .then((res) => {
+          if (res) {
+            alert("บันทึกสำเร็จ");
+            Router.reload(window.location.pathname);
+          }
+        })
+        .catch((err) => {
+          alert("เกิดข้อผิดพลาด");
+        });
     } catch (error) {
       throw error;
     }

@@ -30,18 +30,13 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link href="/">
-                <a className="nav-link">Home</a>
-              </Link>
-            </li>
-            <li className="nav-item">
+            <li className="nav-item m-lg-1">
               <Link href={`/register`}>
                 <a className="nav-link">Register</a>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link href="/write">
+            <li className="nav-item m-lg-1">
+              <Link href="/userList">
                 <a className="nav-link">User List</a>
               </Link>
             </li>

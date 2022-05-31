@@ -17,30 +17,35 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className="d-flex " id="navbarsExample07XL">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarsExample07XL"
-            aria-controls="navbarsExample07XL"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item m-lg-1">
-              <Link href={`/register`}>
-                <a className="nav-link">Register</a>
-              </Link>
-            </li>
-            <li className="nav-item m-lg-1">
-              <Link href="/userList">
-                <a className="nav-link">User List</a>
-              </Link>
-            </li>
-          </ul>
+        <div className="d-flex ">
+          <div id="navbarsExample07XL">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarsExample07XL"
+              aria-controls="navbarsExample07XL"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </div>
+
+          <div class="collapse navbar-collapse" id="navbarsExample07XL">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <Link href={`/register`}>
+                  <a className="nav-link">Register</a>
+                </Link>
+              </li>
+              <li className="nav-item active">
+                <Link href="/userList">
+                  <a className="nav-link">User List</a>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </Nav>

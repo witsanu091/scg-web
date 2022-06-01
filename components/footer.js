@@ -31,7 +31,9 @@ const footer = () => {
             </a>
           </li>
         </ul>
-        <p className="text-center text-muted">© 2021 Company, Inc</p>
+        <p className="text-center text-muted">
+          © 2021 Company, example SCG test
+        </p>
       </footer>
     </div>
   );

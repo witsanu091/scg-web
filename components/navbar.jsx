@@ -17,35 +17,22 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className="d-flex ">
-          <div id="navbarsExample07XL">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarsExample07XL"
-              aria-controls="navbarsExample07XL"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-          </div>
-
-          <div class="collapse navbar-collapse" id="navbarsExample07XL">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link href={`/register`}>
-                  <a className="nav-link">Register</a>
-                </Link>
-              </li>
-              <li className="nav-item active">
-                <Link href="/userList">
-                  <a className="nav-link">User List</a>
-                </Link>
-              </li>
-            </ul>
-          </div>
+        <div
+          className="rowlapse navbar-rowlapse"
+          style={{ width: "200px", fontSize: "15px", display: "contents" }}
+        >
+          <ul className="navbar-nav mr-auto" style={{ flexDirection: "row" }}>
+            <li className="nav-item active m-2">
+              <Link href={`/register`}>
+                <a className="nav-link ">Register</a>
+              </Link>
+            </li>
+            <li className="nav-item active m-2">
+              <Link href="/userList">
+                <a className="nav-link">User List</a>
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </Nav>

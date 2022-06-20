@@ -4,8 +4,14 @@ import Layout from "../components/layout/simple";
 import Head from "next/head";
 import User from "../connect/model-config";
 import Router from "next/router";
+import AlertSuccess from "../components/modal/AlertSuccess";
 
 const register = () => {
+  const [visibleModal, setvisibleModal] = React.useState(false);
+
+  const onCloseModal = () => {
+    setvisibleModal(false);
+  };
   const {
     register,
     handleSubmit,
@@ -37,7 +43,10 @@ const register = () => {
         .Register(userData)
         .then((res) => {
           if (res) {
-            alert("บันทึกสำเร็จ");
+            setvisibleModal(true);
+            setTimeout(() => {
+              onCloseModal();
+            }, 1000);
             Router.reload(window.location.pathname);
           }
         })
@@ -64,6 +73,9 @@ const register = () => {
           marginRight: "auto",
         }}
       >
+        {visibleModal && (
+          <AlertSuccess visible={visibleModal} onClose={onCloseModal} />
+        )}
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)}>
             <p className="fw-bolder">กรอกข้อมูลส่วนตัว</p>

@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-
+import Router from "next/router";
 import User from "../../connect/model-config";
 
 import { useForm } from "react-hook-form";
@@ -29,49 +29,53 @@ export default function ModalDetail({ visible, onClose, data }) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    setValue,
   } = useForm();
   const onSubmit = async (data) => {
-    setvisibleModal(true);
-    setTimeout(() => {
-      onCloseModal();
-    }, 1000);
-    // try {
-    //   let password = "";
-    //   const user = new User();
-    //   await user
-    //     .Setsha512(data.password)
-    //     .then((res) => {
-    //       password = res;
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    //   let userData = {
-    //     username: data.username,
-    //     password: password,
-    //     firstname: data.firstname,
-    //     lastname: data.lastname,
-    //     phone: data.phone,
-    //     email: data.email,
-    //   };
-    //   await user
-    //     .Register(userData)
-    //     .then((res) => {
-    //       if (res) {
-    //         alert("บันทึกสำเร็จ");
-    //         Router.reload(window.location.pathname);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       alert("เกิดข้อผิดพลาด");
-    //     });
-    // } catch (error) {
-    //   throw error;
-    // }
+    // console.log(data.id);
+    try {
+      let userData = {
+        username: data.username,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        password: data.password,
+        phone: data.phone,
+        email: data.email,
+      };
+      const user = new User();
+
+      await user
+        .Update(userData, data.id)
+        .then((res) => {
+          if (res) {
+            setvisibleModal(true);
+            setTimeout(() => {
+              onCloseModal();
+              onClose();
+            }, 1500);
+            Router.reload(window.location.pathname);
+          }
+        })
+        .catch((err) => {
+          alert("เกิดข้อผิดพลาด");
+        });
+    } catch (error) {
+      throw error;
+    }
   };
-  console.log(visible);
+
+  React.useEffect(() => {
+    if (data) {
+      setValue("id", data.id);
+      setValue("firstname", data.firstname);
+      setValue("lastname", data.lastname);
+      setValue("username", data.username);
+      setValue("email", data.email);
+      setValue("phone", data.phone);
+      setValue("password", data.password);
+    }
+  }, [data]);
   return (
     <div>
       {visibleModal && (
@@ -83,10 +87,6 @@ export default function ModalDetail({ visible, onClose, data }) {
         open={open}
         onClose={onClose}
         closeAfterTransition
-        // BackdropComponent={Backdrop}
-        // BackdropProps={{
-        //   timeout: 500,
-        // }}
       >
         <Fade in={open}>
           <Box sx={style}>
@@ -100,7 +100,7 @@ export default function ModalDetail({ visible, onClose, data }) {
                     type="text"
                     className="form-control"
                     placeholder="กรอกชื่อ"
-                    value={data.firstname}
+                    // onChange={}
                   />
                   {errors.firstname && (
                     <p className="text-danger">**กรุณากรอกชื่อ**</p>
@@ -114,7 +114,6 @@ export default function ModalDetail({ visible, onClose, data }) {
                     type="text"
                     className="form-control"
                     placeholder="กรอกนามสกุล"
-                    value={data.lastname}
                   />
                   {errors.lastname && (
                     <p className="text-danger">กรุณากรอกนามสกุล</p>
@@ -129,7 +128,6 @@ export default function ModalDetail({ visible, onClose, data }) {
                   type="text"
                   className="form-control"
                   placeholder="กรอกชื่อผู้ใช้งาน"
-                  value={data.username}
                 />
                 {errors.username && (
                   <p className="text-danger">กรุณากรอกชื่อผู้ใช้งาน</p>
@@ -143,7 +141,6 @@ export default function ModalDetail({ visible, onClose, data }) {
                   type="email"
                   className="form-control"
                   placeholder="กรอกอีเมลล์"
-                  value={data.email}
                 />
                 {errors.email && (
                   <p className="text-danger">กรุณากรอกอีเมลล์</p>
@@ -157,7 +154,6 @@ export default function ModalDetail({ visible, onClose, data }) {
                   className="form-control"
                   placeholder="กรอกเบอร์โทรศัพท์"
                   type="text"
-                  value={data.phone}
                 />
                 {errors.phone && (
                   <p className="text-danger">กรุณากรอกเบอร์โทรศัพท์</p>

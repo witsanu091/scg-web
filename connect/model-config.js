@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:9000/";
+const BASE_URL = "http://127.0.0.1:8000/";
 
 export default class User {
   Register = (data) => {
@@ -12,11 +12,11 @@ export default class User {
         body: JSON.stringify(data),
       };
 
-      fetch(BASE_URL + "user/saveUser", requestOptions)
+      fetch(BASE_URL + "api/saveUser", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           //   console.log(result, "result");
-          if (result.message == "success") {
+          if (result.status == "success") {
             resolve(result);
           } else {
             reject("เกิดข้อผิดพลาด");
@@ -38,7 +38,7 @@ export default class User {
         method: "GET",
         headers: header,
       };
-      fetch("http://127.0.0.1:8000/api/users", requestOptions)
+      fetch(BASE_URL + "api/users", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           console.log(result, "result");

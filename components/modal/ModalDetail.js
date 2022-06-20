@@ -4,7 +4,9 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 
 import User from "../../connect/model-config";
+
 import { useForm } from "react-hook-form";
+import AlertSuccess from "./AlertSuccess";
 
 const style = {
   position: "absolute",
@@ -18,6 +20,12 @@ const style = {
 
 export default function ModalDetail({ visible, onClose, data }) {
   const [open, setOpen] = React.useState(visible);
+  const [visibleModal, setvisibleModal] = React.useState(false);
+
+  const onCloseModal = () => {
+    setvisibleModal(false);
+  };
+
   const {
     register,
     handleSubmit,
@@ -25,6 +33,10 @@ export default function ModalDetail({ visible, onClose, data }) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
+    setvisibleModal(true);
+    setTimeout(() => {
+      onCloseModal();
+    }, 1000);
     // try {
     //   let password = "";
     //   const user = new User();
@@ -62,6 +74,9 @@ export default function ModalDetail({ visible, onClose, data }) {
   console.log(visible);
   return (
     <div>
+      {visibleModal && (
+        <AlertSuccess visible={visibleModal} onClose={onCloseModal} />
+      )}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

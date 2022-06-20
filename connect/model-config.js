@@ -38,11 +38,11 @@ export default class User {
         method: "GET",
         headers: header,
       };
-      fetch(BASE_URL + "user/getUser", requestOptions)
+      fetch("http://127.0.0.1:8000/api/users", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           console.log(result, "result");
-          if (result.message == "success") {
+          if (result.status == "success") {
             resolve(result);
           } else {
             reject("เกิดข้อผิดพลาด");

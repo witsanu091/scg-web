@@ -18,7 +18,7 @@ const style = {
   p: 4,
 };
 
-export default function ModalDetail({ visible, onClose, data }) {
+export default function ModalConfirm({ visible, onClose, data }) {
   const [open, setOpen] = React.useState(visible);
   const [visibleModal, setvisibleModal] = React.useState(false);
 
@@ -30,23 +30,13 @@ export default function ModalDetail({ visible, onClose, data }) {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     // console.log(data.id);
     try {
-      let userData = {
-        username: data.username,
-        firstname: data.firstname,
-        lastname: data.lastname,
-        password: data.password,
-        phone: data.phone,
-        email: data.email,
-      };
       const user = new User();
-
       await user
-        .Update(userData, data.id)
+        .Delete(data.id)
         .then((res) => {
           if (res) {
             setvisibleModal(true);
@@ -65,17 +55,6 @@ export default function ModalDetail({ visible, onClose, data }) {
     }
   };
 
-  React.useEffect(() => {
-    if (data) {
-      setValue("id", data.id);
-      setValue("firstname", data.firstname);
-      setValue("lastname", data.lastname);
-      setValue("username", data.username);
-      setValue("email", data.email);
-      setValue("phone", data.phone);
-      setValue("password", data.password);
-    }
-  }, [data]);
   return (
     <div>
       {visibleModal && (
@@ -91,7 +70,7 @@ export default function ModalDetail({ visible, onClose, data }) {
         <Fade in={open}>
           <Box sx={style}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <p className="fw-bolder">แก้ไขข้อมูลส่วนตัว</p>
+              <h5 className="fw-bolder text-danger">ยืนยันลบข้อมูลส่วนตัว</h5>
               <div className="row">
                 <div className="col-md-6 mt-1">
                   <label className="form-label">ชื่อจริง</label>
@@ -99,8 +78,7 @@ export default function ModalDetail({ visible, onClose, data }) {
                     {...register("firstname", { required: true })}
                     type="text"
                     className="form-control"
-                    placeholder="กรอกชื่อ"
-                    // onChange={}
+                    value={data.firstname}
                   />
                   {errors.firstname && (
                     <p className="text-danger">**กรุณากรอกชื่อ**</p>
@@ -113,7 +91,7 @@ export default function ModalDetail({ visible, onClose, data }) {
                     {...register("lastname", { required: true })}
                     type="text"
                     className="form-control"
-                    placeholder="กรอกนามสกุล"
+                    value={data.lastname}
                   />
                   {errors.lastname && (
                     <p className="text-danger">กรุณากรอกนามสกุล</p>
@@ -127,7 +105,7 @@ export default function ModalDetail({ visible, onClose, data }) {
                   {...register("username", { required: true })}
                   type="text"
                   className="form-control"
-                  placeholder="กรอกชื่อผู้ใช้งาน"
+                  value={data.username}
                 />
                 {errors.username && (
                   <p className="text-danger">กรุณากรอกชื่อผู้ใช้งาน</p>
@@ -138,9 +116,9 @@ export default function ModalDetail({ visible, onClose, data }) {
                 <label className="form-label">email</label>
                 <input
                   {...register("email", { required: true })}
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="กรอกอีเมลล์"
+                  value={data.email}
                 />
                 {errors.email && (
                   <p className="text-danger">กรุณากรอกอีเมลล์</p>
@@ -152,8 +130,8 @@ export default function ModalDetail({ visible, onClose, data }) {
                 <input
                   {...register("phone", { required: true })}
                   className="form-control"
-                  placeholder="กรอกเบอร์โทรศัพท์"
                   type="text"
+                  value={data.phone}
                 />
                 {errors.phone && (
                   <p className="text-danger">กรุณากรอกเบอร์โทรศัพท์</p>
@@ -161,7 +139,7 @@ export default function ModalDetail({ visible, onClose, data }) {
               </div>
 
               <button className="btn btn-primary mt-3 me-2" type="submit">
-                บันทึก
+                ยืนยัน
               </button>
               <button
                 className="btn btn-danger mt-3 "

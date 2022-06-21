@@ -84,6 +84,36 @@ export default class User {
     });
   };
 
+  Delete = (id) => {
+    console.log(id, "id");
+
+    return new Promise(async (resolve, reject) => {
+      var header = new Headers();
+      header.append("Content-Type", "application/json");
+
+      var requestOptions = {
+        method: "DELETE",
+        headers: header,
+      };
+
+      fetch(BASE_URL + "api/users/" + id, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result, "result");
+          if (result.status == "success") {
+            resolve(result);
+          } else {
+            reject("เกิดข้อผิดพลาด");
+          }
+        })
+        .catch((error) => {
+          console.log(error, "error");
+
+          reject(error);
+        });
+    });
+  };
+
   Setsha512 = (key) => {
     return new Promise((resolve, reject) => {
       const pass = crypto.subtle

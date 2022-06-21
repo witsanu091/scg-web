@@ -3,12 +3,18 @@ import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalDetail from "./modal/ModalDetail";
+import ModalConfirm from "./modal/ModalConfirm";
 
 function ButtonInTable({ data }) {
-  const [visibleModal, setvisibleModal] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleDelete, setVisibleDelete] = useState(false);
 
   const onCloseModal = () => {
-    setvisibleModal(false);
+    setVisibleModal(false);
+  };
+
+  const onCloseDelete = () => {
+    setVisibleDelete(false);
   };
 
   return (
@@ -18,14 +24,28 @@ function ButtonInTable({ data }) {
         startIcon={<EditIcon />}
         size="small"
         onClick={() => {
-          setvisibleModal(true);
+          setVisibleModal(true);
         }}
       />
-      <Button startIcon={<DeleteIcon />} size="small" color="primary" />
       {visibleModal && (
         <ModalDetail
           visible={visibleModal}
           onClose={onCloseModal}
+          data={data}
+        />
+      )}
+      <Button
+        startIcon={<DeleteIcon />}
+        size="small"
+        color="primary"
+        onClick={() => {
+          setVisibleDelete(true);
+        }}
+      />
+      {visibleDelete && (
+        <ModalConfirm
+          visible={visibleDelete}
+          onClose={onCloseDelete}
           data={data}
         />
       )}

@@ -12,7 +12,7 @@ export default class User {
         body: JSON.stringify(data),
       };
 
-      fetch(BASE_URL + "api/saveUser", requestOptions)
+      fetch(BASE_URL + "api/users", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           //   console.log(result, "result");

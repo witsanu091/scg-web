@@ -15,7 +15,7 @@ export default class User {
       fetch(BASE_URL + "api/users", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          //   console.log(result, "result");
+          // console.log(result, "result");
           if (result.status == "success") {
             resolve(result);
           } else {
@@ -46,6 +46,7 @@ export default class User {
             resolve(result);
           } else {
             reject("เกิดข้อผิดพลาด");
+            console.log(result, "เกิดข้อผิดพลาด");
           }
         })
         .catch((error) => {

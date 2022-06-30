@@ -38,36 +38,31 @@ const userList = () => {
   };
 
   const columns = [
-    { id: "firstname", label: "ชื่อจริง", minWidth: 170, align: "left" },
+    { id: "firstname", label: "ชื่อจริง", align: "left" },
 
     {
       id: "lastname",
       label: "นามสกุล",
-      minWidth: 170,
       align: "left",
     },
     {
       id: "username",
       label: "ชื่อผู้ใช้งาน",
-      minWidth: 170,
       align: "left",
     },
     {
       id: "email",
       label: "อีเมลล์",
-      minWidth: 170,
       align: "left",
     },
     {
       id: "phone",
       label: "เบอร์โทรศัพท์",
-      minWidth: 170,
       align: "left",
     },
     {
       id: "created_at",
       label: "วันที่ลงทะเบียน",
-      minWidth: 170,
       align: "left",
     },
   ];
@@ -118,7 +113,7 @@ const userList = () => {
                           {column.label}
                         </StyledTableCell>
                       ))}
-                      <StyledTableCell align={"left"} minWidth={170}>
+                      <StyledTableCell align={"left"}>
                         {"Action"}
                       </StyledTableCell>
                     </TableRow>
